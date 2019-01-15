@@ -1,0 +1,151 @@
+﻿@{ 
+    ViewData["Title"] = "計算屬性和偵聽器";
+}
+@section scripts{
+    <script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+    <script>
+        // 計算屬性
+        var app13 = new Vue({
+            el: '#app13',
+            data: {
+                message: 'Hello'
+            },
+            // 計算屬性緩存
+            computed: {
+                // 计算属性的 getter
+                reversedMessage: function () {
+                    // `this` 指向 app13 实例
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        //这里我们声明了一个计算属性 reversedMessage。我们提供的函数将用作属性 app13.reversedMessage 的 getter 函数：
+        console.log(app13.reversedMessage) // => 'olleH'
+        app13.message = 'Goodbye'
+        console.log(app13.reversedMessage) // => 'eybdooG'
+
+        // 计算属性缓存 vs 方法
+        // 我们可以将同一函数定义为一个方法而不是一个计算属性。两种方式的最终结果确实是完全相同的。
+        // 然而，不同的是计算属性是基于它们的依赖进行缓存的。只在相关依赖发生改变时它们才会重新求值。
+        // 这就意味着只要 message 还没有发生改变，多次访问 reversedMessage 计算属性会立即返回之前的计算结果，而不必再次执行函数。
+        // 所以就是說計算屬性Message沒有被改，那他不會在去呼叫會拿之前運算的結果，方法她會每一次都去跑
+        var app14 = new Vue({
+            el: '#app14',
+            data: {
+                message: 'Hello'
+            },
+            // 計算屬性緩存
+            methods: {
+                // 计算属性的 getter
+                reversedMessage: function () {
+                    // `this` 指向 app13 实例
+                    return this.message.split('').reverse().join('')
+                },
+                touch: function () {
+                    // `this` 指向 app13 实例
+                    return this.message = "world"
+                }
+            },
+            computed: {
+                now: function () {
+                    return Date.now()
+                },
+                reversedMessagex: function () {
+                    return this.message.split('').reverse().join('')
+                }
+            }
+        })
+
+        var app15 = new Vue({
+            el: '#app15',
+            data: {
+                first: 'Hello',
+                last: 'Vue!'
+            },
+            computed: {
+                fullName: {
+                    // getter
+                    get: function () {
+                        return this.first + ' ' + this.last
+                    },
+                    // setter
+                    set: function (newValue) {
+                        var names = newValue.split(' ')
+                        this.first = names[0]
+                        this.last = names[names.length - 1]
+                    }
+                }
+            },
+            methods: {
+                touch: function () {
+                    app15.fullName = 'Winner'
+                }
+            }
+        })
+
+        var app16 = new Vue({
+            el: '#app16',
+            data: {
+                question: '',
+                answer: '在你問一個問題之前，我不能給你答案！'
+            },
+            watch: {
+                // 如果 `question` 发生改变，这个函数就会运行
+                question: function (newQuestion, oldQuestion) {
+                    this.answer = '等你停止打字......'
+                    this.getAnswer()
+                    //this.debouncedGetAnswer()
+                }
+            },
+            created: function () {
+                // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+                // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+                // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+                // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+                // 请参考：https://lodash.com/docs#debounce
+                this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+            },
+            methods: {
+                getAnswer: function () {
+                    if (this.question.indexOf('?') === -1) {
+                        this.answer = '問題通常包含問號。'
+                        return
+                    }
+                    this.answer = 'Thinking...'
+                    $.post('/Service/GetAnswer', { question: app16.question }, function (result) {
+                        if (result)
+                            return app16.answer = '回答正確'
+                        else
+                            return app16.answer = '錯誤'
+                    }, 'json');
+                }
+            }
+        })
+    </script>
+}
+<div id="app13">
+    <p>Original message: "{{message}}"</p>
+    <p>Computed reversed message:"{{reversedMessage}}"</p>
+</div>
+<hr />
+<div id="app14">
+    <p>Reversed message:"{{reversedMessage()}}"</p>
+    {{now}}
+    <p>Reversedx message:"{{reversedMessagex}}"</p>
+    <button v-on:click="touch()">touch me</button>
+</div>
+<hr>
+<div id="app15">
+    {{fullName}}
+    <button v-on:click="touch()">touch me</button>
+</div>
+<hr>
+<div id="app16">
+    <p>
+        問一個是/否的問題：
+        <input v-model="question">
+    </p>
+    <p>{{answer}}</p>
+</div>

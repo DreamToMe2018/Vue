@@ -1,0 +1,22 @@
+﻿@section scripts{
+    <script src="~/lib/vue.js"></script>
+    <script>
+        Vue.component('items', {
+            props: ['todo'],
+            template:'<div>{{todo.text}}</div>'
+        })
+
+        var test1 = new Vue({
+            el: '#test1',
+            data: {
+                todos: [{ id: 0, text: '天' }, { id: 1, text: '地' }, { id: 2, text: '我掌握' }],
+                zoos: [{ text: 'rabbit' }, { text: 'cat' }, { text: 'dog' }, {text:'ox'}]
+            }
+        })
+    </script>
+}
+<div id="test1">
+    <items v-for="to in todos" v-bind:todo="to" v-bind:key="to.id"></items>
+    <hr>
+    <items v-for="zoo in zoos" v-bind:todo="zoo"></items>
+</div>

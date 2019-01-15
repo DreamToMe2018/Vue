@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "Test";
+    Layout = "~/Views/Shared/_QunitLayout.cshtml";
+}
+
+<script>
+    QUnit.test("hello test", function (assert) {
+        assert.ok(1 == "1", "Passed!");
+    });
+</script>

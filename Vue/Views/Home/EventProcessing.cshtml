@@ -1,0 +1,163 @@
+﻿@{
+    ViewData["Title"] = "事件處理";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            }
+        })
+
+        var app1 = new Vue({
+            el: '#app1',
+            data: {
+                name: 'Vue.js'
+            },
+            methods: {
+                greet: function (event) {
+                    alert('Hello ' + this.name + '!')
+                    // 'event' 是原生 DOM 事件
+                    if (event)
+                        alert(event.target.tagName)
+                }
+            }
+        })
+
+        // 也可以用 JavaScript 直接调用方法
+        //app1.greet() // => 'Hello Vue.js!'
+
+        var app2 = new Vue({
+            el: '#app2',
+            methods: {
+                say: function (message) {
+                    alert(message)
+                }
+            }
+        })
+
+        var app3 = new Vue({
+            el: '#app3',
+            methods: {
+                warn: function (message, event) {
+                    // 现在我们可以访问原生事件对象
+                    if (event) {
+                        //preventDefault() 方法阻止元素发生默认的行为（例如，当点击提交按钮时阻止对表单的提交）。
+                        event.preventDefault()
+                        alert(message)
+                    }
+                }
+            }
+        })
+    </script>
+}
+監聽事件
+<div id="app">
+    <button v-on:click="counter += 1">ADD1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+<hr>
+事件處理方法
+<div id="app1">
+    <button v-on:click="greet">Greet</button>
+</div>
+<hr />
+內聯處理器中的方法
+除了直接綁定到一個方法，也可以在內聯 JavaScript 語句中調用方法：
+<div id="app2">
+    <button v-on:click="say('hi')">Say hi</button>
+    <button v-on:click="say('what')">Say what</button>
+</div>
+<hr />
+有時也需要在內聯語句處理器中訪問原始的 DOM 事件。可以用特殊變量 $event 把它傳入方法：
+<div id="app3">
+    <button v-on:click="warn('hi',$event)">touch me</button>
+</div>
+<hr>
+<p>在事件處理程序中調用 event.preventDefault() 或 event.stopPropagation() 是非常常見的需求。儘管我們可以在方法中輕鬆實現這點，但更好的方式是：方法只有純粹的數據邏輯，而不是去處理 DOM 事件細節。</p>
+<p>為了解決這個問題，Vue.js 為 v-on 提供了事件修飾符。之前提過，修飾符是由點開頭的指令後綴來表示的。</p>
+<p>.stop</p>
+<p>.prevent</p>
+<p>.capture</p>
+<p>.self</p>
+<p>.once</p>
+<p>.passive</p>
+<!-- 阻止单击事件继续传播 -->
+<a v-on:click.stop="doThis"></a>
+
+<!-- 提交事件不再重载页面 -->
+<form v-on:submit.prevent="onSubmit"></form>
+
+<!-- 修饰符可以串联 -->
+<a v-on:click.stop.prevent="doThat"></a>
+
+<!-- 只有修饰符 -->
+<form v-on:submit.prevent></form>
+
+<!-- 添加事件监听器时使用事件捕获模式 -->
+<!-- 即元素自身触发的事件先在此处理，然后才交由内部元素进行处理 -->
+<div v-on:click.capture="doThis">...</div>
+
+<!-- 只当在 event.target 是当前元素自身时触发处理函数 -->
+<!-- 即事件不是从内部元素触发的 -->
+<div v-on:click.self="doThat">...</div>
+
+<!-- 点击事件将只会触发一次 -->
+<a v-on:click.once="doThis"></a>
+<p>使用修飾符時，順序很重要；相應的代碼會以同樣的順序產生。因此，用</p>
+<p>v-on:click.prevent.self 會阻止所有的點擊，</p>
+<p>而 v-on:click.self.prevent 只會阻止對元素自身的點擊。</p>
+<p>Vue 還對應 addEventListener 中的 passive 選項提供了 .passive 修飾符。</p>
+<!-- 滾動事件的默認行為 (即滾動行為) 將會立即觸發 -->
+<!-- 而不會等待 `onScroll` 完成 -->
+<!-- 這其中包含 `event.preventDefault()` 的情況 -->
+<div v-on:scroll.passive="onScroll">...</div>
+<p>這個 .passive 修飾符尤其能夠提升移動端的性能。</p>
+<p>不要把 .passive 和 .prevent 一起使用，因为 .prevent 将会被忽略，同时浏览器可能会向你展示一个警告。请记住，.passive 会告诉浏览器你不想阻止事件的默认行为。</p>
+<hr>
+<p>按键修饰符    </p>
+<p>在監聽鍵盤事件時，我們經常需要檢查常見的鍵值。 Vue 允許為 v-on 在監聽鍵盤事件時添加按鍵修飾符：    </p>
+<!-- 只有在 `keyCode` 是 13 时调用 `vm.submit()` -->
+<input v-on:keyup.13="submit">
+<!-- 同上 -->
+<input v-on:keyup.enter="submit">
+<p>全部的按键别名：</p>
+<p>.enter</p>
+<p>.tab</p>
+<p>.delete (捕获“删除”和“退格”键)</p>
+<p>.esc</p>
+<p>.space</p>
+<p>.up</p>
+<p>.down</p>
+<p>.left</p>
+<p>.right</p>
+<p>可以通過全局 config.keyCodes 對象自定義按鍵修飾符別名：</p>
+<p>// 可以使用 `v-on:keyup.f1`</p>
+<p>Vue.config.keyCodes.f1 = 112</p>
+<hr
+<p>系統修飾鍵</p>
+<p>可以用如下修飾符來實現僅在按下相應按鍵時才觸發鼠標或鍵盤事件的監聽器。</p>
+<p>.ctrl</p>
+<p>.alt</p>
+<p>.shift</p>
+<p>.meta</p>
+<!-- Alt + C -->
+<input v-on:keyup.alt .67="clear">
+<!-- Ctrl + Click -->
+<div v-on:click.ctrl="doSomething">Do something</div>
+<p>.exact 修饰符</p>
+<p>.exact 修飾符允許你控制由精確的系統修飾符組合觸發的事件。</p>
+
+<!-- 即使 Alt 或 Shift 被一同按下時也會觸發 -->
+<button v-on:click.ctrl="onClick">A</button>
+
+<!-- 有且只有 Ctrl 被按下的時候才觸發 -->
+<button v-on:click.ctrl.exact="onCtrlClick">A</button>
+
+<!-- 沒有任何系統修飾符被按下的時候才觸發 -->
+<button v-on:click.exact="onClick">A</button>
+<p>鼠標按鈕修飾符</p>
+<p>.left</p>
+<p>.right</p>
+<p>.middle</p>

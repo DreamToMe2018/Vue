@@ -1,0 +1,121 @@
+﻿@{
+    ViewData["Title"] = "基礎範例";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app', // 拿app物件
+            data: {
+                message: 'Hello Vue!'
+            }
+        })
+
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                title: 'vue-tdods',
+                todos: [{ value: '1', done: 'A' }, { value: '2', done: 'B' }, { value: '3', done: 'C' }]
+            }
+        })
+        app2.todos.push({ value: '魔王', done: '六翼' })  // 推資料
+
+        var app3 = new Vue({
+            el: '#app3',
+            data: {
+                message: 'Hello Vue! ' + new Date().toLocaleDateString()
+            }
+        })
+
+        var app4 = new Vue({
+            el: '#app4',
+            data: {
+                seen: true
+            }
+        })
+
+        var app5 = new Vue({
+            el: '#app5',
+            data: {
+                message: 'Hello 歡迎來到魔王城',
+            },
+            methods: { //方法要寫在裡面
+                reserseMessage: function () {
+                    this.message = this.message.split('').reverse().join('') // reverse把字相反
+                }
+            }
+        })
+
+        var app6 = new Vue({
+            el: '#app6',
+            data: {
+                message: 'Hello 天使的世界',
+                test: false
+            }
+        })
+
+        // 全域變數 'todo-item' 就會等於自訂義的<div>
+        Vue.component('todo-item', {
+            props:['todo'],         // 陣列然後塞變數
+            template: '<div>{{todo.text}}</div>' // template 他會把資料寫在content 一定要加div之類的
+                                                 // 因為知道todo塞的資料是有text才可以這樣寫
+        })
+
+        var app7 = new Vue({
+            el: '#app7',
+            data: {
+                groceryList: [
+                    { id: 0, text: '莫欺' },
+                    { id: 1, text: '少年' },
+                    { id: 2, text: '窮' }
+                ]
+            }
+        })
+    </script>
+}
+<div id="app">
+    {{ message }}
+</div>
+<hr>
+<div id="app2">
+    {{title}}  @*data title*@
+    <div v-for="todo in todos">
+        @*data todos 前面的todo是陣列元素別名，todos是真正的陣列(在app2) 上面那一行*@
+        {{todo.value}}{{todo.done}}        @*可以拿陣列裡面的值*@
+
+    </div>
+    <div v-for="(todo,index) in todos" :id="index">
+        @*:id 將index的值放到Dom的Id屬性輸出結果為id="1" 如果沒加:就是為他指定字串*@
+        @*(todos,index) 前面的todo是陣列元素別名index是第幾個陣列，todos是真正的陣列(在app2) 上面那一行(另一種寫法針對其中某個陣列)*@
+        {{index+1}}.{{todo.value}}{{todo.done}}         @*可以拿陣列裡面的值*@
+    </div>
+</div>
+<hr>
+<div id="app3">
+    <span v-bind:title="message">
+        @*v-bind:title  可以為下面的字設定Title 要把滑鼠放在字上面才會出現*@
+        這是我第一個Vue
+    </span>
+</div>
+<hr>
+<div id="app4">
+    <span v-if="seen">你看不見我</span> @*Vue的if事件*@
+    @*v-if 指令将根据表达式 seen 的值的真假来插入/移除 <span> 元素。*@
+</div>
+<hr>
+<div id="app5">
+    {{message}}
+    <br>
+    <button v-on:click="reserseMessage">把字變相反</button> @*Vue的button click事件*@
+</div>
+<hr>
+<div id="app6">
+    <p>{{message}}</p>
+    <input v-model="message">  @*Vue的v-model是指可以在input輸入，並且可以雙向綁定，所以在輸入時就會改變Message的值*@
+    {{test}}
+    <input type="checkbox" v-model="test">
+</div>
+<hr>
+<div id="app7">
+    <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+    @*他會先foreach groceryList 然後把item的資料bind到全域變數的todo，把item.Id的資料bind到key*@
+</div>

@@ -1,0 +1,91 @@
+﻿@{
+    ViewData["Title"] = "整理";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0
+            }
+        })
+
+        var app2 = new Vue({
+            el: '#app2',
+            methods: {
+                say: function (message) {
+                    alert(message)
+                }
+            }
+        })
+
+        // 增加响应式属性屬性
+        var app7 = new Vue({
+            el: '#app7',
+            data: {
+                userProfile: {
+                    name: 'Anika'
+                }
+            }
+        })
+
+        // 添加一个新的 age 属性到嵌套的 userProfile 对象
+        function VueNewType() {
+            Vue.set(app7.userProfile, 'age', 27)
+            // 相同
+            //app7.$set(app7.userProfile, 'age', 27)
+        }
+
+
+        Vue.component('todo-item', {
+            template: '<li>{{ title }}<button v-on:click="$emit(\'remove\')">Remove</button></li>',
+            props: ['title']
+        })
+
+        var app10 = new Vue({
+            el: '#app10',
+            data: {
+                newTodoText: '',
+                todos: [
+                    { id: 1, title: '我是第一名' }, { id: 2, title: '我是第二名' }, { id: 3, title: '史上最強弟子兼一' }
+                ],
+                nextTodoId: 4
+            },
+            methods: {
+                addNewTodo: function () {
+                    this.todos.push({ id: this.nextTodoId++, title: this.newTodoText })
+                    this.newTodoText = ''
+                }
+            }
+        })
+    </script>
+}
+<div id="app">
+    <button v-on:click="counter += 1">ADD1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+</div>
+<hr>
+<div id="app2">
+    <button v-on:click="say('hi')">Say hi</button>
+    <button v-on:click="say('what')">Say what</button>
+</div>
+<hr />
+<div id="app7">
+    <div v-for="(user,key) in userProfile">
+        {{key}}-{{user}}
+    </div>
+    <button onclick="VueNewType()">增加屬性</button>
+</div>
+<hr>
+<div id="app10">
+    <todo-item v-for="todo in todos" v-bind:title="todo.title" v-bind:key="todo.id"></todo-item>
+    <hr>
+    <form v-on:submit.prevent="addNewTodo">
+        <label>Add a todo</label>
+        <input v-model="newTodoText" placeholder="E.g. Feed the cat" />
+        <button>Add</button>
+    </form>
+    <ul>
+        <li is="todo-item" v-for="(todo,index) in todos" v-bind:title="todo.title" v-bind:key="todo.id" v-on:remove="todos.splice(index,1)"></li>
+    </ul>
+</div>

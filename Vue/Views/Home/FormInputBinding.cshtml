@@ -1,0 +1,257 @@
+﻿@{
+    ViewData["Title"] = "表單輸入綁定";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: ''
+            }
+        })
+
+        var app2 = new Vue({
+            el: '#app2',
+            data: {
+                check: false
+            }
+        })
+
+        var app3 = new Vue({
+            el: '#app3',
+            data: {
+                checkedNames: []
+            }
+        })
+
+        var app4 = new Vue({
+            el: '#app4',
+            data: {
+                picked: ''
+            }
+        })
+
+        var app5 = new Vue({
+            el: '#app5',
+            data: {
+                selected: ''
+            }
+        })
+
+        var app6 = new Vue({
+            el: '#app6',
+            data: {
+                selected: []
+            }
+        })
+
+        var app7 = new Vue({
+            el: '#app7',
+            data: {
+                selected: '貓',
+                options: [
+                    { text: 'Cat', value: '貓' },
+                    { text: 'Dog', value: '狗' },
+                    { text: 'Panda', value: '熊貓' }
+                ]
+            }
+        })
+
+        var app8 = new Vue({
+            el: '#app8',
+            data: {
+                picked: '',
+                toggle: '',
+                selected: ''
+            }
+        })
+
+        var app9 = new Vue({
+            el: '#app9',
+            data: {
+                toggle: '',
+                pick: '',
+                a: '呆腦獸'
+            }
+        })
+
+        var app10 = new Vue({
+            el: '#app10',
+            data: {
+                selected: ''
+            }
+        })
+
+        var app11 = new Vue({
+            el: '#app11',
+            data: {
+                msg: '三幻神',
+                msgNow: '三幻神'
+            }
+        })
+
+        var app12 = new Vue({
+            el: '#app12',
+            data: {
+                age: '35'
+            }
+        })
+
+        var app13 = new Vue({
+            el: '#app13',
+            data: {
+                message: '   Hello world!   '
+            }
+        })
+    </script>
+}
+@*你可以用 v-model 指令在表單 <input>、<textarea> 及 <select>
+    元素上創建雙向數據綁定。它會根據控件類型自動選取正確的方法來更新元素。儘管有些神奇，但 v-model 本質上不過是語法糖。它負責監聽用戶的輸入事件以更新數據，並對一些極端場景進行一些特殊處理。
+    v-model 會忽略所有表單元素的 value、checked、selected 特性的初始值而總是將 Vue 實例的數據作為數據來源。你應該通過 JavaScript 在組件的 data 選項中聲明初始值
+    對於需要使用輸入法 (如中文、日文、韓文等) 的語言，你會發現 v-model 不會在輸入法組合文字過程中得到更新。如果你也想處理這個過程，請使用 input 事件。*@
+文本,多行文本
+<div id="app">
+    <input v-model="message" placeholder="edit me" />
+    <p>Message is:{{message}}</p>
+    <hr>
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line">{{message}}</p>
+    <br>
+    <textarea v-model="message" placeholder="add multiple lines"></textarea>
+    @*在文本區域插值 (<textarea></textarea>) 並不會生效，應用 v-model 來代替。*@
+</div>
+<hr />
+單選
+<div id="app2">
+    <input type="checkbox" v-model="check" />
+    {{check}}
+</div>
+<hr />
+複選框
+<div id="app3">
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+</div>
+<hr />
+單選按鈕
+<div id="app4">
+    <input type="radio" id="one" value="Cat" v-model="picked" />
+    Cat
+    <input type="radio" id="one" value="Dog" v-model="picked" />
+    Dog
+    <p>Picked:{{picked}}</p>
+</div>
+<hr />
+單選選擇框
+<div id="app5">
+    <select v-model="selected">
+        <option disabled value="">請選擇</option>
+        <option>貓</option>
+        <option>狗</option>
+        <option>熊貓</option>
+    </select>
+    <span>Selected:{{selected}}</span>
+</div>
+<hr />
+@*如果 v-model 表達式的初始值未能匹配任何選項，<select> 元素將被渲染為“未選中”狀態。在 iOS 中，這會使用戶無法選擇第一個選項。因為這樣的情況下，iOS 不會觸發 change 事件。因此，更推薦像上面這樣提供一個值為空的禁用選項。*@
+複選
+<div id="app6">
+    <select v-model="selected" multiple style="width:50px;">
+        <option>貓</option>
+        <option>狗</option>
+        <option>熊貓</option>
+    </select>
+    <p>Selected:{{selected}}</p>
+</div>
+<hr />
+v-for 喧染
+<div id="app7">
+    <select v-model="selected">
+        <option v-for="option in options" v-bind:value="option.value">{{option.text}}</option>
+    </select>
+    <p>Selected:{{selected}}</p>
+</div>
+<hr />
+值绑定
+<div id="app8">
+    <!-- 当选中时，`picked` 为字符串 "a" -->
+    <input type="radio" v-model="picked" value="a">
+    {{picked}}
+    <!-- `toggle` 为 true 或 false -->
+    <input type="checkbox" v-model="toggle">
+    {{toggle}}
+    <!-- 当选中第一个选项时，`selected` 为字符串 "abc" -->
+    <select v-model="selected">
+        <option value="abc">ABC</option>
+    </select>
+    {{selected}}
+</div>
+<hr />
+複選框
+<div id="app9">
+    <input type="checkbox" v-model="toggle" true-value="yes" false-value="no">
+    {{toggle}}
+    <p>
+        當選中時
+        vm.toggle === 'yes'
+        當沒有選中時
+        vm.toggle === 'no'
+        這裡的 true-value 和 false-value 特性並不會影響輸入控件的 value 特性，因為瀏覽器在提交表單時並不會包含未被選中的複選框。如果要確保表單中這兩個值中的一個能夠被提交，(比如“yes”或“no”)，請換用單選按鈕。
+    </p>
+    單選按鈕
+    <input type="radio" v-model="pick" v-bind:value="a">
+    {{pick}}
+    <p>
+        當選中時
+        vm.pick === vm.a
+    </p>
+</div>
+<hr />
+<div id="app10">
+    選擇框的選項
+    <select v-model="selected">
+        <!-- 内联对象字面量 -->
+        <option v-bind:value="{ monster: '天空龍' }">歐西里斯</option>
+        <option v-bind:value="{ monster: '翼神龍' }">太陽神</option>
+        <option v-bind:value="{ monster: '巨神兵' }">歐貝利斯克</option>
+    </select>
+    <p>{{selected}}</p>
+    當選中時
+    typeof vm.selected // => 'object'
+    vm.selected.number // => 123
+</div>
+<hr />
+修飾符
+在默認情況下，v-model 在每次 input 事件觸發後將輸入框的值與數據進行同步 (除了上述輸入法組合文字時)。你可以添加 lazy 修飾符，從而轉變為使用 change 事件進行同步：
+<div id="app11">
+    .lazy
+    <!-- 在“change”时而非“input”时更新 -->
+    <p>下面的是輸入完按外面才會更新 change事件</p>
+    <p>
+        <input v-model.lazy="msg">
+        {{msg}}
+    </p>
+    <p>下面的是直接入就更新 input时更新</p>
+    <input v-model="msgNow">
+    {{msgNow}}
+</div>
+<hr />
+<div id="app12">
+    <p>.number</p>
+    如果想自動將用戶的輸入值轉為數值類型，可以給 v-model 添加 number 修飾符：
+    <input v-model.number="age" type="number">
+    這通常很有用，因為即使在 type="number" 時，HTML 輸入元素的值也總會返回字符串。如果這個值無法被 parseFloat() 解析，則會返回原始的值。
+</div>
+<hr />
+<div id="app13">
+    <p>.trim</p>
+    如果要自動過濾用戶輸入的首尾空白字符，可以給 v-model 添加 trim 修飾符：
+    <input v-model.trim="message">
+    <p>{{message}}</p>
+</div>

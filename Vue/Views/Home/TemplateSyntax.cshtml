@@ -1,0 +1,93 @@
+﻿@{ 
+    ViewData["Title"] = "模板語法";
+}
+@section scripts{
+    <script>
+        var app8 = new Vue({
+            el: '#app8',
+            data: {
+                msg: 'Sky',
+                htmls: '<div style="color:red">我是紅色</div>'
+            },
+            methods: {
+                changes: function () {
+                    this.msg = 'cat';
+                }
+            }
+        })
+
+        var app9 = new Vue({
+            el: '#app9',
+            data: {
+                Id: 1,
+                isButtonDiasble: true
+            }
+        })
+
+        var app10 = new Vue({
+            el: '#app10',
+            data: {
+                number: 1,
+                message: 'hello wuo'
+            }
+        })
+
+        var app11 = new Vue({
+            el: '#app11',
+            data: {
+                url: 'https://cn.vuejs.org/v2/guide/syntax.html'
+            }
+        })
+
+        var app12 = new Vue({
+            el: '#app12',
+            data: {
+                url: 'https://cn.vuejs.org/v2/guide/syntax.html'
+            }
+        })
+    </script>
+}
+<div id="app8">
+    <div v-once>這個將不會給變:{{msg}}</div>
+    @*v-once 他第一次會把值帶進來，然後就不能再改變了*@
+    <div>這個將會變:{{msg}}</div>
+    <button v-on:click="changes">123</button>
+    <hr />
+    <div> {{htmls}}</div>
+    <div v-html="htmls"></div>
+    @*v-html 會把html的屬性放進來 最好不要用會被攻擊*@
+</div>
+<hr />
+<div id="app9">
+    <div v-bind:id="Id"></div>
+    <button v-bind:disabled="isButtonDiasble">BUTTON</button>
+    @*v-bind 可以Mapping到要得事件或屬性*@
+    @*如果 isButtonDiasble 的值是 null、undefined 或 false，则 disabled 特性甚至不会被包含在渲染出来的 <button> 元素中。*@
+</div>
+<hr />
+<div id="app10">
+    {{number +1}}
+    @*{{ ok ? 'YES' : 'NO' }}*@
+    {{ message.split('').reverse().join('') }}
+</div>
+<hr />
+<div id="app11">
+    {{url}}
+    <a v-bind:href="url">12346</a>
+    <a v-on:click="alert('a');">點我</a>
+</div>
+<hr>
+<form v-on:sumbit.prevent="onSumbit">...</form>
+@*.prevent就是修飾符告訴sunbit事件要用event.preventDefault()事件*@
+@*修饰符 (Modifiers) 是以半角句号 . 指明的特殊后缀，用于指出一个指令应该以特殊方式绑定。例如，.prevent 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()：*@
+<hr />
+<div id="app12">
+    @*v-bind縮寫 把v-bind拿掉就可以了*@
+    <a v-bind:href="url">沒縮寫</a>
+    <br />
+    <a :href="url">有縮寫</a>
+    <hr />
+    @*v-on縮小 把v-on:換成@ MVC不能用@ 會衝突*@
+    <a v-on:click="alert('沒縮寫');">沒縮寫</a>
+    @*<a @click="alert('有縮寫但不能用');">...</a>*@
+</div>

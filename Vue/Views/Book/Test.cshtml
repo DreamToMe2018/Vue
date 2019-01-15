@@ -1,0 +1,36 @@
+﻿@section scripts{
+    <script src="~/lib/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                value: { first: 'ray', last: 'Liang' }
+            }
+        })
+
+        var project = new Vue({
+            el: '#project',
+            data: {
+                title: "vue-todos",
+                todos: [{ value: '閱讀前端', done: false, created: Date.now() }, { value: '補充範例', done: true, created: Date.now()+300000 }
+                    , { value: '心得分享', done: false, created: Date.now()-300000 }]
+            }
+        })
+    </script>
+}
+<div id="project">
+    <h1>{{title}}</h1>
+    <ul class="todos">
+        <li v-for="(todo,index) in todos" :class="{'checked':todo.done}">
+            {{todo.done}}
+            <label>{{index+1}}.{{todo.value}}</label>
+            <time>{{todo.created}}</time>
+        </li>
+        </ul>
+</div>
+<hr>
+<div id="app">
+    <div v-for="obj in value">
+        {{obj}}
+    </div>
+</div>
