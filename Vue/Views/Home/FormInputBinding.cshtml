@@ -246,6 +246,7 @@ v-for 喧染
     <p>.number</p>
     如果想自動將用戶的輸入值轉為數值類型，可以給 v-model 添加 number 修飾符：
     <input v-model.number="age" type="number">
+    {{age}}
     這通常很有用，因為即使在 type="number" 時，HTML 輸入元素的值也總會返回字符串。如果這個值無法被 parseFloat() 解析，則會返回原始的值。
 </div>
 <hr />

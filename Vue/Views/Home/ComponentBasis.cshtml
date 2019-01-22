@@ -1,0 +1,262 @@
+﻿@{
+    ViewData["Title"] = "組件基礎";
+}
+<style>
+    .dynamic-component-demo-tab-button {
+        padding: 6px 10px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        background: #f0f0f0;
+        margin-bottom: -1px;
+        margin-right: -1px;
+    }
+
+        .dynamic-component-demo-tab-button:hover {
+            background: #e0e0e0;
+        }
+
+    .dynamic-component-demo-tab-button-active {
+        background: #e0e0e0;
+    }
+
+    .dynamic-component-demo-tab {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+</style>
+@section scripts{
+    <script>
+        Vue.component('button-counter', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+        })
+
+        new Vue({
+            el: '#components-demo'
+        })
+
+        Vue.component('blog-post', {
+            props: ['title'],
+            template: '<h3>{{ title }}</h3>'
+        })
+
+        new Vue({
+            el: '#app'
+        })
+
+        new Vue({
+            el: '#app2',
+            data: {
+                posts: [
+                    { id: 1, title: 'My journey with Vue' },
+                    { id: 2, title: 'Blogging with Vue' },
+                    { id: 3, title: 'Why Vue is so fun' }
+                ]
+            }
+        })
+
+        Vue.component('mulite', {
+            props: ['post'],
+            template:'<div class="mulite"><h3>{{post.title}}</h3><div v-html="post.content"></div></div>'
+            //template: '<h3>{{post.title}}</h3><div v-html="post.content"></div>'
+        })
+
+        new Vue({
+            el: '#mulite',
+            data: {
+                datas:[{ title: 666, content: 'zzz' }, { title: 99900, content: 'asdasd' }]
+            }
+        })
+
+        Vue.component('test1', {
+            props: ['post'],
+            template: '<div class="test"><h3>{{post.title}}</h3><button  v-on:click="$emit(\'enlarge-text\')">Enlarge text</button><div v-html="post.content"></div></div>'
+        })
+
+        new Vue({
+            el: '#app3',
+            data: {
+                posts: [
+                    { id: 1, title: 'bear', content: '..content' },
+                    { id: 2, title: 'panda', content: '..content' },
+                    { id: 3, title: 'cat', content: '..content' }
+                ],
+                postFontSize: 1
+            }
+        })
+
+        Vue.component('custom-input', {
+            props: ['value'],
+            template: '<input v-bind:value="value" v-on:input="$emit(\'input\',$event.target.value)">'
+        })
+
+        new Vue({
+            el: '#app4',
+            data: {
+                searchText:'abc'
+            }
+        })
+
+        Vue.component('alert-box', {
+            template: '<div class="demo-alert-box"><strong>Error!</strong><slot></slot></div>'
+        })
+
+        new Vue({
+            el: '#app5',
+            data: {
+            }
+        })
+
+        Vue.component('tab-home', {
+            template: '<div>Home component</div>'
+        })
+        Vue.component('tab-posts', {
+            template: '<div>Posts component</div>'
+        })
+        Vue.component('tab-archive', {
+            template: '<div>Archive component</div>'
+        })
+
+        var app8 = new Vue({
+            el: '#dynamic-component-demo',
+            data: {
+                currentTab: 'Home',
+                tabs: ['Home', 'Posts', 'Archive']
+            },
+            computed: {
+                currentTabComponent: function () {
+               return 'tab-' + this.currentTab.toLowerCase()
+                }
+            },
+            methods: {
+                Home: function () {
+                    return this.currentTab = "Home";
+                },
+                Post: function () {
+                    return this.currentTab = "Posts";
+                },
+                Archive: function () {
+                    return this.currentTab = "Archive";
+                }
+            }
+        })
+    </script>
+}
+<div id="components-demo">
+    <button-counter></button-counter>
+    <hr />
+    可任意次數複用
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <p>注意當點擊按鈕時，每個組件都會各自獨立維護它的 count。因為你每用一次組件，就會有一個它的新實例被創建。</p>
+    <hr />
+    <p>data 必須是一個函數當我們定義這個 <button-counter> 組件時，你可能會發現它的 data 並不是像這樣直接提供一個對象：</p>
+    <p>
+        data: {
+        count: 0
+        }
+    </p>
+    <p>取而代之的是，一個組件的 data 選項必須是一個函數，因此每個實例可以維護一份被返回對象的獨立的拷貝：</p>
+    <p>
+        data: function () {
+        return {
+        count: 0
+        }
+        }
+    </p>
+    <p>如果 Vue 沒有這條規則，點擊一個按鈕就可能會像如下代碼一樣影響到其它所有實例：</p>
+</div>
+<hr />
+通過 Prop 向子組件傳遞數據,v-bind適用在不明確的屬性
+<div id="app">
+    <blog-post title="My journey with Vue"></blog-post>
+    <blog-post title="Blogging with Vue"></blog-post>
+    <blog-post title="Why Vue is so fun"></blog-post>
+</div>
+<hr />
+<div id="app2">
+    你会发现我们可以使用 v-bind 来动态传递 prop。这在你一开始不清楚要渲染的具体内容，比如从一个 API 获取博文列表的时候，是非常有用的。
+    <blog-post v-for="post in posts" v-bind:title="post.title" v-bind:key="post.id"></blog-post>
+</div>
+<hr />
+多個屬性
+<div id="mulite">
+    <mulite v-for="data in datas" v-bind:post="data"></mulite>
+</div>
+<hr />
+通過事件向父級組件發送消息
+例如我们可能会引入一个可访问性的功能来放大博文的字号，同时让页面的其它部分保持默认的字号
+在其父组件中，我们可以通过添加一个 postFontSize 数据属性来支持这个功能
+<div id="app3">
+    <div v-bind:style="{ fontSize: postFontSize + 'em' }">
+        <test1 v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="postFontSize += 0.1"></test1>
+    </div>
+</div>
+我们可以调用内建的 $emit 方法并传入事件的名字，来向父级组件触发一个事件：
+<hr />
+使用事件抛出一个值
+例如我们可能想让 @*<blog-post>*@
+组件决定它的文本要放大多少。这时可以使用 $emit 的第二个参数来
+@*<button v-on:click="$emit('enlarge-text', 0.1)">
+        Enlarge text
+    </button>
+    <blog-post ...
+               v-on:enlarge-text="postFontSize += $event"></blog-post>
+    或者，如果这个事件处理函数是一个方法：
+
+    <blog-post ...
+               v-on:enlarge-text="onEnlargeText"></blog-post>
+    那么这个值将会作为第一个参数传入这个方法：
+
+    methods: {
+    onEnlargeText: function (enlargeAmount) {
+    this.postFontSize += enlargeAmount
+    }
+    }*@
+<hr>
+@*<input v-model="searchText">
+    等价于：
+    <input v-bind:value="searchText"
+           v-on:input="searchText = $event.target.value">*@
+当用在组件上时，v-model 则会这样：
+为了让它正常工作，这个组件内的 input 必须：将其 value 特性绑定到一个名叫 value 的 prop 上在其 input 事件被触发时，将新的值通过自定义的 input 事件抛出写成代码之后是这样的：
+现在 v-model 就应该可以在这个组件上完美地工作起来了：
+<div id="app4">
+    <custom-input v-model="searchText"></custom-input>
+    {{searchText}}
+</div>
+<hr />
+通过插槽分发内容Vue 自定义的 slot 元素让这变得非常简单：
+<div id="app5">
+    <alert-box>
+        Something bad happened.
+    </alert-box>
+</div>
+<hr />
+ 动态组件
+ 有的时候，在不同组件之间进行动态切换是非常有用的，比如在一个多标签的界面里：上述内容可以通过 Vue 的 component元素加一个特殊的 is 特性来实现：
+<!-- 组件会在 `currentTabComponent` 改变时改变 -->
+<component v-bind:is="currentTabComponent"></component>
+ 在上述示例中，currentTabComponent 可以包括已注册组件的名字，或 一个组件的选项对象
+<div class="demo" id="dynamic-component-demo">
+    <button class="dynamic-component-demo-tab-button dynamic-component-demo-tab-button-active" v-on:click="Home()">Home</button>
+    <button class="dynamic-component-demo-tab-button" v-on:click="Post()">Posts</button>
+    <button class="dynamic-component-demo-tab-button" v-on:click="Archive()" >Archive</button>
+    <component class="dynamic-component-demo-tab" v-bind:is="currentTabComponent"></component>
+</div>
+<hr />
+    解析 DOM 模板时的注意事项
+@*有些 HTML 元素，诸如 <ul>、<ol>、<table> 和 <select>，对于哪些元素可以出现在其内部是有严格限制的。而有些元素，诸如 <li>、<tr> 和 <option>
+    ，只能出现在其它某些特定的元素内部。
+    这个自定义组件 <blog-post-row>*@
+    会被作为无效的内容提升到外部，并导致最终渲染结果出错。幸好这个特殊的 is 特性给了我们一个变通的办法：
+<table>
+    <tr is="blog-post-row"></tr>
+</table>

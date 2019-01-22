@@ -78,5 +78,11 @@ namespace Vue.Controllers
         {
             return View();
         }
+
+        // 組件基礎
+        public IActionResult ComponentBasis()
+        {
+            return View();
+        }
     }
 }
