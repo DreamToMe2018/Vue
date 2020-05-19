@@ -55,19 +55,24 @@
                                 <i class="fa fa-caret-down"></i>
                             </button>
                             <div class="mynav_dropdown-content">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Step">目錄</a>
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="OrganizeTemplate">整理1</a>
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="OrganizeTemplate2">整理2</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Template">生命週期</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Template1">[v-bind:class][v-bind:style]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Template2">[v-if][v-else][v-else-if][v-show]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Template3">[v-for]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Template4">[v-on]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Template5">[v-model]</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Organize" asp-action="Template6">[Vue.component][v-bind:is]</a>
                             </div>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Vue">Vue練習</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Test2">練習</a>
-                        </li>
+                        </li>*@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Test">Quint</a>
                         </li>
@@ -108,7 +113,8 @@
         </script>
     </environment>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/lib/vue.js"></script>
+    @*<script src="~/lib/vue.js"></script>*@
+    <script src="~/lib/vue2.6.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

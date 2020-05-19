@@ -1,0 +1,177 @@
+﻿@{
+    ViewData["Title"] = "整合範例4";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                parentMessage: 'Parent',
+                items: [
+                    { message: 'Foo' },
+                    { message: 'Bar' }
+                ],
+                object: {
+                    title: 'How to do lists in Vue',
+                    author: 'Jane Doe',
+                    publishedAt: '2016-04-10'
+                },
+                numbers: [1, 2, 3, 4, 5],
+                sets: [
+                    [1, 2, 3, 4, 5],
+                    [6, 7, 8, 9, 10]
+                ],
+                todos: [
+                    { message: 'Foo', isComplete: true },
+                    { message: 'Bar', isComplete: false }
+                ],
+                newTodoText: '',
+                todosNew: [
+                    {
+                        id: 1,
+                        title: 'Do the dishes',
+                    },
+                    {
+                        id: 2,
+                        title: 'Take out the trash',
+                    },
+                    {
+                        id: 3,
+                        title: 'Mow the lawn'
+                    }
+                ],
+                nextTodoId: 4
+            },
+            computed: {
+                evenNumbers: function () {
+                    return this.numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                }
+            },
+            methods: {
+                even: function (numbers) {
+                    return numbers.filter(function (number) {
+                        return number % 2 === 0
+                    })
+                },
+                addNewTodo: function () {
+                    this.todosNew.push({
+                        id: this.nextTodoId++,
+                        title: this.newTodoText
+                    })
+                    this.newTodoText = ''
+                }
+            }
+        })
+
+        Vue.component('todo-item', {
+            template: '<li>{{ title }}\<button v-on:click="$emit(\'remove\')">Remove</button></li>',
+            props: ['title']
+        })
+
+                // v-for 必須給ID
+    </script>
+}
+<div id="app">
+    <p>[列表渲染]</p>
+    <p>[建議盡可能在使用v-for時提供keyattribute，除非遍歷輸出的DOM內容非常簡單，或者是刻意依賴默認行為以獲取性能上的提升。]</p>
+    <p>[v-for]</p>
+    <ul>
+        <li v-for="item in items" :key="item.message">
+            {{item.message}}
+        </li>
+    </ul>
+    <hr />
+    <p>[v-for還支持一個可選的第二個參數，即當前項的索引]</p>
+    <p>[可以用of替代in作為分隔符]</p>
+    <ul>
+        <li v-for="(item,index) in items">
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
+    <hr />
+    <p>[可以用v-for來遍歷一個對象的property]</p>
+    <ul>
+        <li v-for="value in object">
+            {{value}}
+        </li>
+    </ul>
+    <p>[可以提供第二個的參數為property 名稱(也就是鍵名)]</p>
+    <ul>
+        <li v-for="(value,name) in object">
+            {{name}}:{{value}}
+        </li>
+    </ul>
+    <p>[可以用第三個參數作為索引]</p>
+    <ul>
+        <li v-for="(value,name,index) in object">
+            {{index}}.{{name}}:{{value}}
+        </li>
+    </ul>
+    <p>[push(),pop(),shift(),unshift(),splice(),sort(),reverse() 變更方法]</p>
+    <p>[範例:example1.items.push({ message: 'Baz' })]</p>
+    <hr />
+    <p>[替換數組]</p>
+    <p>[filter()、concat()和slice()]</p>
+    <p>
+        [example1.items = example1.items.filter(function (item) {
+        return item.message.match(/Foo/)
+        })]
+        [總是返回一個新數組。當使用非變更方法時，可以用新數組替換舊數組：]
+    </p>
+    <p>[含有相同元素的數組去替換原來的數組是非常高效的操作。]</p>
+    <hr />
+    <p>[顯示過濾/排序後的結果]</p>
+    <ul>
+        <li v-for="n in evenNumbers">{{ n }}</li>
+    </ul>
+    <p>[不使用計算屬性]</p>
+    <ul v-for="set in sets">
+        <li v-for="n in even(set)">{{ n }}</li>
+    </ul>
+    <p>[v-for也可以接受整數]</p>
+    <div>
+        <span v-for="n in 10">{{ n }} </span>
+    </div>
+    <p>[在template上使用v-for]</p>
+    <ul>
+        <template v-for="item in items">
+            <li>{{ item.message }}</li>
+        </template>
+    </ul>
+    <p>[不推薦v-for與v-if一同使用 v-for的優先級比v-if更高，這意味著v-if將分別重複運行於每個v-for循環中。]</p>
+    <ul>
+        <li v-for="todo in todos" v-if="!todo.isComplete">
+            {{ todo }}
+        </li>
+    </ul>
+    <p>[你的目的是有條件地跳過循環的執行，那麼可以將v-if置於外層元素(或template)上。]</p>
+    <ul v-if="todos.length">
+        <li v-for="todo in todos">
+            {{ todo }}
+        </li>
+    </ul>
+    <p v-else>No todos left!</p>
+    <p>[在組件上使用 v-for]</p>
+    <p>[2.2.0+的版本當在組件上使用v-for時，key現在是必須的。]</p>
+    <my-component v-for="item in items" :key="item.id"></my-component>
+    <hr />
+    <p>[任何數據都不會被自動傳遞到組件裡，因為組件有自己獨立的作用域。為了把迭代數據傳遞到組件裡，我們要使用prop：]</p>
+    <my-component v-for="(item, index) in items" v-bind:item="item" v-bind:index="index" v-bind:key="item.id"></my-component>
+    <p>[實作]</p>
+    <form v-on:submit.prevent="addNewTodo">
+        <label for="new-todo">Add a todo</label>
+        <input v-model="newTodoText"
+               id="new-todo"
+               placeholder="E.g. Feed the cat">
+        <button>Add</button>
+    </form>
+    <ul>
+        <li is="todo-item"
+            v-for="(todo, index) in todosNew"
+            v-bind:key="todo.id"
+            v-bind:title="todo.title"
+            v-on:remove="todosNew.splice(index, 1)"></li>
+    </ul>
+</div>

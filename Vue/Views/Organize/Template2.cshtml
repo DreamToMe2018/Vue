@@ -1,0 +1,89 @@
+﻿@{
+    ViewData["Title"] = "整合範例3";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                awesome: false,
+                ok: true,
+                type: 'B',
+                loginType :'username'
+            },
+            methods: {
+                change: function () {
+                    if (this.loginType === 'username')
+                        return this.loginType = 'email'
+                    else
+                        return this.loginType = 'username'
+                }
+            }
+        })
+        // v-if=""
+        // v-else 
+        // v-else-if
+        // v-show
+        // v-show只是簡單地切換元素的CSS property display
+        // 注意，v-show不支持<template>元素，也不支持v-else
+    </script>
+}
+<div id="app">
+    [v-if]
+    <h1 v-if="awesome">Vue is awesome!</h1>
+    [v-else v-else指令來表示v-if的else塊]
+    <h1 v-else>Oh no 😢</h1>
+    <hr />
+    [在template元素上使用v-if條件渲染分組]
+    <template v-if="ok">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+    </template>
+    <hr />
+    [v-else元素必須緊跟在帶v-if或者v-else-if的元素的後面，否則它將不會被識別。]
+    <div v-if="Math.random() > 0.5">
+        Now you see me
+    </div>
+    <div v-else>
+        Now you don't
+    </div>
+    <hr />
+    [v-else-if v-else-if也必須緊跟在帶v-if或者v-else-if的元素之後]
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+    <div v-else>
+        Not A/B/C
+    </div>
+    <hr />
+    <p>[用key管理可複用的元素 重複利用placeholder]</p>
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username">
+    </template>
+    <template v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address">
+    </template>
+    <button v-on:click="change">切換按鈕</button>
+    <p> [用Key 2個元素是完全獨立的 不要復用]</p>
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username" key="username-input">
+    </template>
+    <template v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address" key="email-input">
+    </template>
+    <button v-on:click="change">切換按鈕</button>
+    <p>[v-show 如果需要非常頻繁地切換，則使用v-show較好；如果在運行時條件很少改變，則使用v-if較好]</p>
+    <h1 v-show="ok">Hello!</h1>
+    <p>[當v-if與v-for一起使用時，v-for具有比v-if更高的優先級]</p>
+</div>

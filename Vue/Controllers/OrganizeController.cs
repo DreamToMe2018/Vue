@@ -17,5 +17,50 @@ namespace Vue.Controllers
         {
             return View();
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Template()
+        {
+            return View();
+        }
+
+        public IActionResult Template1()
+        {
+            return View();
+        }
+
+        public IActionResult Template2()
+        {
+            return View();
+        }
+
+        public IActionResult Template3()
+        {
+            return View();
+        }
+
+        public IActionResult Template4()
+        {
+            return View();
+        }
+
+        public IActionResult Template5()
+        {
+            return View();
+        }
+
+        public IActionResult Template6()
+        {
+            return View();
+        }
+
+        public IActionResult Step()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,67 @@
+﻿@{
+    ViewData["Title"] = "整合範例5";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                counter: 0,
+                name:'Vue.js'
+            },
+            computed: {
+                
+            },
+            methods: {
+                greet: function (event) {
+                    alert('Hello' + this.name + '!')
+                    // event 是原生DOM事件
+                    if (event) {
+                        alert(event.target.tagName)
+                    }
+                },
+                say: function (message) {
+                    alert(message)
+                },
+                warn: function (msg, event) {
+                    if (event) {
+                        event.preventDefault()
+                    }
+                    alert(msg)
+                }
+            }
+
+            // v-on
+        })
+    </script>
+}
+<div id="app">
+    <p>[v-on監聽事件]</p>
+    <button v-on:click="counter += 1">Add 1</button>
+    <p>The button above has been clicked {{ counter }} times.</p>
+    <hr />
+    <p>[v-on事件處理方法(調用方法)]</p>
+    <button v-on:click="greet">Greet</button>
+    <hr />
+    <p>[內聯處理器中的方法]</p>
+    <button v-on:click="say('hi')">Say hi</button>
+    <button v-on:click="say('what')">Say what</button>
+    <p>[有時也需要在內聯語句處理器中訪問原始的DOM事件。可以用特殊變量$event把它傳入方法]</p>
+    <button v-on:click="warn('Form cannot be submitted yet.',$event)">Submit</button>
+    <hr />
+    <p>[事件修飾符]</p>
+    <p>阻止預設事件繼續傳播v-on:click.stop="doThis"</p>
+    <p>提交事件不再重載頁面v-on:submit.prevent ="onSubmit"</p>
+    <p>修飾符可以層疊v-on:click.stop.prevent="doThat"</p>
+    <p>只有修飾符v-on：submit.prevent</p>
+    <p>添加事件監聽器時使用事件捕獲模式_即內部元素觸發的事件先在此處理，然後才交由內部元素進行處理v-on：click.capture ="doThis"</p>
+    <p>只當在event.target是當前元素自身時觸發處理函數_即事件不是從內部元素觸發的v-on：click.self ="doThat"</p>
+    <p>點擊事件將只會觸發一次v-on:click.once="doThis"</p>
+    <p>滾動事件的交替行為（即滾動行為）將會立即觸發_而不會等待onScroll完成_這其中包event.preventDefault（）的情況_v-on：scroll.passive ="onScroll"_這個.passive修飾符尤其能夠提升移動端的性能</p>
+    <p>不要把.passive和.prevent一起使用，因為.prevent將會被忽略，同時瀏覽器可能會向你展示一個警告。請記住，.passive會告訴瀏覽器你不想阻止事件的默認行為。</p>
+    <hr />
+    <p>[按鍵修飾符]</p>
+    <p>只有在key是Enter时调用vm.submit()_v-on:keyup.enter="submit"</p>
+    <p>可以直接將KeyboardEvent.key暴露的任意有效按鍵名轉換為kebab-case來作為修飾符_v-on:keyup.page-down="onPageDown"</p>
+    <p>有對應鍵盤的按鍵https://cn.vuejs.org/v2/guide/events.html</p>
+</div>

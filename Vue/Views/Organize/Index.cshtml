@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "整合範例";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                message2: '頁面加載於 ' + new Date().toLocaleString(),
+                seen: true,
+                todos: [
+                    { text: '學習 JavaScript' },
+                    { text: '學習 Vue' },
+                    { text: '整個牛項目' }
+                ],
+                message3: '周子瑜我老婆',
+                message4: '我會中樂透頭獎',
+                groceryList: [
+                    { id: 0, text: '蔬菜' },
+                    { id: 1, text: '奶酪' },
+                    { id: 2, text: '隨便其它什麼人吃的東西' }
+                ],
+                rawHtml: '<span style="color:red">This should be red</span>',
+                dynamicId: 'dynamic',
+                isButtonDisabled: true,
+                number: 1,
+                ok: true,
+                href: 'https://www.gamer.com.tw/'
+            },
+            methods: {
+                reverseMessage: function () {
+                    this.message3 = this.message3.split('').reverse().join('')
+                }
+            }
+        })
+
+        app.todos.push({ text: '周子瑜' });
+
+        Vue.component('todo-item', {
+            template: '<li>這是我老婆周子瑜</li>'
+        })
+
+        Vue.component('todo-item1', {
+            props: ['todo'],
+            template: '<li>{{todo.text}}</li>'
+        })
+
+        // v-bind:title=""
+        // v-bind:id=""
+        // v-bind:disable=""
+        // v-bind:href=""
+        // v-if=""
+        // v-for="todo in todos"
+        // v-on:click
+        // methods
+        // v-model 可以直接Mapping屬性，並修改
+        // component 組件系統，讓程式可以複用
+        // component.props自定義的屬性
+        // v-once
+        // v-html=""
+    </script>
+}
+<div id="app">
+    基本顯示
+    {{message}}
+    <hr />
+    [v-bind]
+    <span v-bind:title="message2">
+        鼠標懸停幾秒鐘查看此處動態綁定的提示信息！
+    </span>
+    <hr />
+    [v-if]
+    <p v-if="seen">現在你看到我了</p>
+    <hr />
+    <ol>
+        [v-for]
+        <li v-for="todo in todos">
+            {{todo}}
+        </li>
+    </ol>
+    <hr />
+    [v-on]
+    <p>{{message3}}</p>
+    <button v-on:click="reverseMessage">反轉消息</button>
+    <hr />
+    [v-model]
+    <p>{{message4}}</p>
+    <input v-model="message4" />
+    <hr />
+    [component]
+    <p>創建todo-item</p>
+    <ol>
+        <todo-item></todo-item>
+    </ol>
+    <hr />
+    [component.props]
+    <p>創建todo-item1,使用v-for,在v-bind todo,每個組件都要給key</p>
+    <ol>
+        <todo-item1 v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item1>
+    </ol>
+    <hr />
+    [v-once]
+    <p>你也能執行一次性地插值，當數據改變時，插值處的內容不會更新</p>
+    <span v-once>這個不會改變:{{message}}</span>
+    <hr />
+    [v-html]
+    <p>Using mustaches: {{rawHtml}}</p>
+    <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+    <hr />
+    [v-bind(id,disable)]
+    <div v-bind:id="dynamicId"></div>
+    <button v-bind:disabled="isButtonDisabled">LOVE</button>
+    <p>如果isButtonDisabled的值是null、undefined或false，則disabledattribute甚至不會被包含在渲染出來的button元素中。</p>
+    <hr />
+    [JavaScript表達式]
+    <p>{{ number + 1 }}</p>
+    <p>{{ ok ? 'YES' : 'NO' }}</p>
+    <p>{{ message.split('').reverse().join('') }}</p>
+    <div v-bind:id="'list-' + dynamicId"></div>
+    <hr />
+    <p>[v-bind:href]</p>
+    <a v-bind:href="href">巴哈</a>
+    <p>[v-bind縮寫]</p>
+    <a :href="href">巴哈2</a>
+    <p>[v-on 縮寫為小老鼠Mvc打不出來]</p>
+    <hr />
+    [修飾符]
+    <p>.prevent修飾符告訴v-on指令對於觸發的事件調用event.preventDefault()</p>
+    <form v-on:submit.prevent="onSubmit">送出</form>
+</div>

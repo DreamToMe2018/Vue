@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "整合範例2";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                isActive: true,
+                hasError: true,
+                classObject: {
+                    active: true,
+                    'text-danger': false
+                },
+                error: null,
+                activeClass: 'active',
+                errorClass: 'text-danger',
+                activeColor: 'red',
+                fontSize: 30,
+                styleObject: {
+                    color: 'red',
+                    fontSize: '13px'
+                }
+            },
+            computed: {
+                classObjectV2: function () {
+                    return {
+                        active: this.isActive && !this.error,
+                        'text-danger': this.error && this.error.type === 'fatal'
+                    }
+                }
+            }
+        })
+
+        Vue.component('my-component', {
+            template: '<p class="foo bar">Hi</p>'
+        })
+
+    // [v-bind:class]
+    // [v-bind:style]
+    </script>
+}
+<p>Class 與Style 綁定 用F12找元素</p>
+<p>https://cn.vuejs.org/v2/guide/class-and-style.html</p>
+<div id="app">
+    [v-bind:class][v-bind:class 可以跟普通的class attribute共存]
+    <div class="static" v-bind:class="{active:isActive,'text-danger':hasError}"></div>
+    <hr />
+    [可使用data.ClassObject]
+    <div v-bind:class="classObject"></div>
+    <hr />
+    [可使用computed.ClassObject]
+    <div v-bind:class="classObjectV2"></div>
+    <hr />
+    [數組語法]
+    <div v-bind:class="[activeClass, errorClass]"></div>
+    [三元表達式]
+    <div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+    <div v-bind:class="[{ active: isActive }, errorClass]"></div>
+    [用在組件上]
+    <my-component class="baz boo"></my-component>
+    <my-component v-bind:class="{ active: isActive }"></my-component>
+    <p>[綁定內聯樣式]</p>
+    <div v-bind:style="{ color: activeColor, fontSize: fontSize + 'px' }">123</div>
+    <div v-bind:style="styleObject">456</div>
+    [數組語法,可疊加]
+    @*<div v-bind:style="[baseStyles, overridingStyles]"></div>*@
+</div>

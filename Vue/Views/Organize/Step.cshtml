@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "目錄";
+}
+@section scripts{
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+            },
+            computed: {
+              
+            },
+            methods: {
+             
+            }
+        })
+    </script>
+}
+<div id="app">
+    <p>1.<a href="@Url.Content("/Organize/Template1")">[v-bind:class][v-bind:style]</a></p>
+    <p>2.<a href="@Url.Content("/Organize/Template2")">[v-if][v-else][v-else-if][v-show]</a></p>
+    <p>3.<a href="@Url.Content("/Organize/Template3")">[v-for]</a></p>
+    <p>4.<a href="@Url.Content("/Organize/Template4")">[v-on]</a></p>
+    <p>5.<a href="@Url.Content("/Organize/Template5")">[v-model]</a></p>
+    <p>6.<a href="@Url.Content("/Organize/Template6")">[Vue.component][v-bind:is]</a></p>
+</div>

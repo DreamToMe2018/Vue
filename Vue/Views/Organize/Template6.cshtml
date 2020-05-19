@@ -1,0 +1,162 @@
+﻿@{
+    ViewData["Title"] = "整合範例7";
+}
+<style>
+    .dynamic-component-demo-tab-button {
+        padding: 6px 10px;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+        border: 1px solid #ccc;
+        cursor: pointer;
+        background: #f0f0f0;
+        margin-bottom: -1px;
+        margin-right: -1px;
+    }
+
+        .dynamic-component-demo-tab-button:hover {
+            background: #e0e0e0;
+        }
+
+    .dynamic-component-demo-tab-button-active {
+        background: #e0e0e0;
+    }
+
+    .dynamic-component-demo-tab {
+        border: 1px solid #ccc;
+        padding: 10px;
+    }
+</style>
+@section scripts{
+    <script>
+        Vue.component('button-counter', {
+            data: function () {
+                return {
+                    count: 0
+                }
+            },
+            template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+        })
+
+        // 會被一起影響
+        //data: {
+            //count: 0
+        //}
+        // 每個都是獨立的
+        //data: function () {
+        //    return {
+        //        count: 0
+        //    }
+        //}
+
+        Vue.component('blog-post', {
+            props: ['title'],
+            template: '<h3>{{ title }}</h3>'
+        })
+
+        Vue.component('blog-post-two', {
+            props: ['post'],
+            template: '<div class="blog-post"><h3>{{ post.title }}</h3><div v-html="post.content"></div></div>'
+        })
+
+        Vue.component('blog-post-three', {
+            props: ['post'],
+            template: '<div class="blog-post"><h3>{{ post.title }}</h3><button v-on:click="$emit(\'enlarge-text\')">Enlarge text</button><div v-html="post.content"></div></div>'
+        })
+
+        Vue.component('custom-input', {
+            props: ['value'],
+            template: '<input v-bind:value="value" v-on:input="$emit(\'input\', $event.target.value)">'
+        })
+
+        Vue.component('alert-box', {
+            template: '<div class="demo-alert-box"><strong>Error!</strong><slot></slot></div>'
+        })
+
+        Vue.component('tab-home', {
+            template: '<div>Home component</div>'
+        })
+        Vue.component('tab-posts', {
+            template: '<div>Posts component</div>'
+        })
+        Vue.component('tab-archive', {
+            template: '<div>Archive component</div>'
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                posts: [
+                    { id: 1, title: '周子瑜' ,content:'台灣人'},
+                    { id: 2, title: 'IU', content: '韓國人'}
+                ],
+                postFontSize: 1,
+                searchText: '',
+                currentTab: 'Home',
+            },
+            computed: {
+                currentTabComponent: function () {
+                    return 'tab-' + this.currentTab.toLowerCase()
+                }
+            },
+            methods: {
+                onEnlargeText: function (enlargeAmount) {
+                    this.postFontSize += enlargeAmount
+                },
+                Home: function () {
+                    return this.currentTab = "Home";
+                },
+                Post: function () {
+                    return this.currentTab = "Posts";
+                },
+                Archive: function () {
+                    return this.currentTab = "Archive";
+                }
+            }
+        })
+
+        // Vue.component
+        // v-bind:is
+    </script>
+}
+<div id="app">
+    <p>[組件基礎(如果要在組件用 Vue.component，就必須放在new Vue前面)]</p>
+    <button-counter></button-counter>
+    <hr />
+    <p>[複用]</p>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <button-counter></button-counter>
+    <hr />
+    <p>[通過Prop 向子組件傳遞數據]</p>
+    <blog-post title="My journey with Vue"></blog-post>
+    <blog-post title="Blogging with Vue"></blog-post>
+    <blog-post title="Why Vue is so fun"></blog-post>
+    <hr />
+    <blog-post-two v-for="post in posts" v-bind:key="post.id" v-bind:post="post"></blog-post-two>
+    <hr />
+    <p>[監聽子組件事件 給子組件方法]</p>
+    <div :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post-three v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="postFontSize += 0.1"></blog-post-three>
+    </div>
+    <hr />
+    <p>[使用事件拋出一個值]</p>
+    <div :style="{ fontSize: postFontSize + 'em' }">
+        <blog-post-three v-for="post in posts" v-bind:key="post.id" v-bind:post="post" v-on:enlarge-text="onEnlargeText(0.1)"></blog-post-three>
+    </div>
+    <hr />
+    <p>[在组件上使用 v-model]</p>
+    <custom-input v-model="searchText"></custom-input>
+    <hr />
+    <p>[通過插槽分發內容 slot插入]</p>
+    <alert-box>
+        Something bad happened.
+    </alert-box>
+    <hr />
+    <p>[動態組件 在不同組件之間進行動態切換是非常有用的，比如在一個多標籤的界面]</p>
+    <p>[v-bind:is 可以利用Vue.componet]</p>
+    <!-- 组件会在 `currentTabComponent` 改变时改变 -->
+    <button class="dynamic-component-demo-tab-button dynamic-component-demo-tab-button-active" v-on:click="Home()">Home</button>
+    <button class="dynamic-component-demo-tab-button" v-on:click="Post()">Posts</button>
+    <button class="dynamic-component-demo-tab-button" v-on:click="Archive()">Archive</button>
+    <component class="dynamic-component-demo-tab" v-bind:is="currentTabComponent"></component>
+</div>

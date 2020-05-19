@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "整合範例6";
+}
+@section scripts{
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: '',
+                message2: '',
+                checked: true,
+                checkedNames: [],
+                picked: '',
+                selected: '',
+                selectedArray: [],
+                selectedV: 'A',
+                options: [
+                    { text: 'One', value: 'A' },
+                    { text: 'Two', value: 'B' },
+                    { text: 'Three', value: 'C' }
+                ],
+            },
+            computed: {
+
+            },
+            methods: {
+
+            }
+        })
+
+            //v-model
+    </script>
+}
+<div id="app">
+    <p>[表單輸入綁定]</p>
+    <input v-model="message" placeholder="edit me" />
+    <p>Message is:{{message}}</p>
+    <hr />
+    <span>Multiline message is:</span>
+    <p style="white-space: pre-line;">{{ message2 }}</p>
+    <br>
+    <textarea v-model="message2" placeholder="add multiple lines"></textarea>
+    <hr />
+    <p>[複選框]</p>
+    <p>[單個複選框，綁定到BOOL]</p>
+    <input type="checkbox" id="checkbox" v-model="checked" />
+    <label for="checkbox">{{checked}}</label>
+    <hr />
+    <p>[多個複選框，綁定到同一個數組]</p>
+    <input type="checkbox" id="jack" value="Jack" v-model="checkedNames">
+    <label for="jack">Jack</label>
+    <input type="checkbox" id="john" value="John" v-model="checkedNames">
+    <label for="john">John</label>
+    <input type="checkbox" id="mike" value="Mike" v-model="checkedNames">
+    <label for="mike">Mike</label>
+    <br>
+    <span>Checked names: {{ checkedNames }}</span>
+    <hr />
+    <p>[單選按鈕]</p>
+    <input type="radio" id="one" value="One" v-model="picked">
+    <label for="one">One</label>
+    <br>
+    <input type="radio" id="two" value="Two" v-model="picked">
+    <label for="two">Two</label>
+    <br>
+    <span>Picked: {{ picked }}</span>
+    <hr />
+    <p>[選擇框]</p>
+    <p>[單選時]</p>
+    <select v-model="selected">
+        <option disabled value="">請選擇</option>
+        <option>周子瑜</option>
+        <option>IU</option>
+        <option>李晟京</option>
+    </select>
+    <span>Selected: {{ selected }}</span>
+    <hr />
+    <p>[多選時]</p>
+    <select v-model="selectedArray" multiple style="width: 50px;">
+        <option>周子瑜</option>
+        <option>IU</option>
+        <option>李晟京</option>
+    </select>
+    <br>
+    <span>Selected: {{ selectedArray }}</span>
+    <hr />
+    <p>[v-for渲染的動態選項]</p>
+    <select v-model="selectedV">
+        @*選項*@
+        <option v-for="option in options" v-bind:value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    <span>Selected: {{ selectedV }}</span>
+    <hr />
+    <p>[參考https://cn.vuejs.org/v2/guide/forms.html]</p>
+</div>
