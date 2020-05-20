@@ -1,2 +1,5 @@
 https://stackoverflow.com/questions/47852417/images-not-appearing-asp-net-core
 Asp.net Core Image 要放在 wwwroot 才可以動
+
+Vue
+https://cn.vuejs.org/v2/guide/
