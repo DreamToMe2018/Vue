@@ -1,15 +1,266 @@
-﻿
-@{
-    Layout = null;
+﻿@{
+    ViewData["Title"] = "關於";
 }
-
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-</body>
-</html>
+@section scripts{
+}
+<div class="row">
+    <div class="col-md-10">
+        <table>
+            <tr>
+                <td width="100%" height="40" align="left" style="font-size: 16px;">
+                    <b id="SystemsManual">◎系統說明</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="bodyText" align="left">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：司法院「民事強制執行線上聲請系統」的法律依據是什麼？</li>
+                        <li>答：在「強制執行法」的規範下，司法院依據「電子簽章法」、「民事訴訟文書使用電信傳真或其他科技設備作業辦法」及「政府採購法」，推出「民事強制執行線上聲請系統」委託建置暨營運（BO）案，希望藉此提升司法效率，落實便民服務。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：司法院為什麼要推出「民事強制執行線上聲請系統」？</li>
+                        <li>答：民事強制執行案件每年超過一百二十萬件，但大部分都是重複聲請執行的案件，耗費聲請（債權）人和地方法院非常多的人力和物力。因此，推出本系統之後，希望把強制執行程序導入資訊化作業，以節省社會資源，提高司法效率。尤其，本系統提供每天24小時的線上聲請服務，幾乎全年無休，更可確保當事人的權益。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：「民事強制執行線上聲請系統」可以取代目前向地方法院聲請強制執行的法律效力嗎？</li>
+                        <li>答：是的。過去聲請人要親自跑到地方法院或是透過郵局掛號附回執（雙掛號），才能完成強制執行的遞狀聲請，現在有了本系統的線上服務，聲請人不必出門就可以經由網路設備完成聲請及繳費作業，隨後也會收到法院的回執確認，每個流程都一樣有保障，請民眾安心使用本系統。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：什麼樣的聲請人適合使用「民事強制執行線上聲請系統」？</li>
+                        <li>答：需要大量聲請強制執行案件的聲請（債權）人最適合採用本系統，例如銀行、租賃、電信、公用事業（水、電、瓦斯）、法律事務所（以訴訟代理人身分）及其他法人債權管理單位，將可節省人力和物力，大幅提高作業效率。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：案件量較少的聲請人也可以使用「民事強制執行線上聲請系統」？</li>
+                        <li>答：當然，本系統也歡迎案件量較少的企業法人和一般自然人使用，只是須先查驗身份開立帳戶（工商或自然人憑證），再將相關文件掃描製成PDF檔以供上傳，各項程序都要辦理完備。因此，如果每年送件數量在10件以下，使用線上聲請系統是否比較便利，請聲請人自行評估。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：在什麼情況下，不可使用「民事強制執行線上聲請系統」來送件？</li>
+                        <li>答：如果聲請人的執行名義不是電子化債權憑證，或是強制執行的標的物（如房地產）或執行行為（如扣薪）所在地，不是由原第一審法院管轄，就不建議使用本系統來送件聲請，否則聲請人必須再把執行名義正本掛號郵寄到執行法院，反而造成不便。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：為什麼聲請人不能直接掃描執行名義，透過「民事強制執行線上聲請系統」向任何一所地方法院送件？</li>
+                        <li>答：依「強制執行法」第六條規定，原第一審法院只要知道案號，即可自行調閱卷宗並受理聲請，但其他法院則無法跨院閱卷，因此向非第一審法院聲請強制執行時都必須附上執行名義的正本（如判決、裁定、公證書等），否則地方法院將退回該聲請案件。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：「民事強制執行線上聲請系統」的營運時間？假日是否營運？</li>
+                        <li>答：本系統是每天24小時提供服務，幾乎全年無休（春節假期除外）。但客服電話的專人服務時間是工作日每天上午九點到下午六點。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：個人使用「民事強制執行線上聲請系統」之前，需要先準備哪些東西？</li>
+                        <li>答：個人用戶應該先備有自然人憑證、IE瀏覽器、掃描器、信用卡及執行名義（如判決、裁定、公證書等）。如果有不動產執行標的，聲請人必須事先申請謄本再做掃瞄及附表，或是先在地政電子謄本系統開立帳戶，直接透過本系統申領電子謄本並自動製作附表。</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td width="100%" height="40" align="left" style="font-size: 16px;">
+                    <b id="OpenAccount">◎開立帳戶</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="bodyText" align="left">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：開立帳戶為何要使用電子憑證？</li>
+                        <li>答：「電子簽章法」及司法程序上均規定，必須確保聲請（送件）人之身分確認性及不可否認性，因此在網際網路的世界中唯有出示政府機關核發的電子憑證，才能驗明身分並具有法律效力。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：開立帳戶時除了使用自然人憑證或工商憑證之外，有沒有其他替代方案？</li>
+                        <li>答：礙於法令規定，本系統目前沒有其他替代方案，但聲請人可繼續使用原有的紙本作業方式向法院遞狀送件。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：開立帳戶要使用的電子憑證，到底要去哪裡申請？</li>
+                        <li>答：目前工商憑證（正附卡）費用是420元，效期5年，請向經濟部工商憑證管理中心申請（http://moeaca.nat.gov.tw）。自然人憑證工本費250元，效期5年，請持本人身分證就近向戶政事務所申辦（可跨縣市），詳情請上內政部憑證管理中心網站查詢（http://moica.nat.gov.tw/apply.html）。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：開立帳戶時，究竟是要使用自然人憑證或是工商憑證才對？</li>
+                        <li>答：如果聲請（債權）人是企業或機構法人，請使用工商憑證來開立帳戶；假如書狀上的聲請（債權）人是自然人，就請使用自然人憑證。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：開立帳戶和聲請（債權）人必須是同一個人嗎？</li>
+                        <li>答：是的。為驗明聲請（送件）人身分，並確保遞送書狀之不可否認性，開立帳戶和聲請（債權）人必須是同一個人，但只有執業律師可以用訴訟代理人身分在本系統上遞狀聲請。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：當初在開立帳戶時已經使用電子憑證驗明身分了，為什麼送件時還要再次使用憑證？</li>
+                        <li>答：是的。送件時必須再以電子憑證確認身分，這是依據「電子簽章法」和司法程序上的規定，以確保聲請（送件）人之不可否認性。如果聲請人與送件人不符時，本系統將不予受理。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：可不可以借用別人開立的帳戶來傳送自己的強制執行聲請案？</li>
+                        <li>答：不可以。依法令規定，開立帳戶的人和案件聲請人必須是同一人，該聲請案才具有法律上的效力，而且本系統也會自動偵測，一旦發現不合格案件將予以退件。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：為什麼開立帳戶時只能使用IE瀏覽器，不能用Google的Chrome瀏覽器？</li>
+                        <li>答：因為政府核發的工商憑證和自然人憑證目前只接受IE瀏覽器，所以在開立帳戶並驗明身分時，如果使用Google的Chrome瀏覽器，將無法讀取憑證。但除了讀取憑證的動作之外，本系統作業可以同時接受兩種瀏覽器。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：開立帳戶時為什麼要繳付300元開辦費？</li>
+                        <li>答：基於系統資源有限，以及後續的維護與服務，本公司對開立帳戶的使用人酌收300元開辦費。</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td width="100%" height="40" align="left" style="font-size: 16px;">
+                    <b id="OperationalProblem">◎操作問題</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="bodyText" align="left">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：書狀編輯頁面有很多長方形的按鍵，各是代表哪些功能？</li>
+                        <li>答：從左至右依序是謄本申請、謄本查詢、編輯附表、編輯書狀、上傳附件及刪除稿件等六個按鍵，如果把游標停在按鍵上，系統也會自動顯示它所代表的功能，操作非常簡便。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：書狀編輯頁面上的「謄本查詢」及「編輯附表」鍵的功能是什麼？</li>
+                        <li>答：因為聲請人向地政電子謄本系統申請謄本時需要等待幾分鐘的時間，所以「謄本查詢」的功能是在了解謄本申領的狀況。而不動產附表是由本系統自動製成，一旦申領的電子謄本送達，此時點選「編輯附表」鍵就可以檢閱已經完成的不動產附表。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：編輯書狀到底要怎麼進行？</li>
+                        <li>答：本系統的書狀格式都是依照司法院所公布的範本製作而成，聲請人只要點入「編輯書狀」並選取所需要的書狀種類，再依序登打債權金額及當事人資料，系統將自動帶入範本和稱謂，最後再選擇執行法院即可。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：怎麼知道自己完成的強制執行書狀是否正確？</li>
+                        <li>答：完稿之後，書狀頁面下方有校對鍵，點入後可查看剛才完成的書狀稿件。此外，如果有不動產執行標的或是證據附件，請聲請人在遞狀送出之前要記得再檢閱全部的稿件，以確保資料都正確完備。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：為何申領不動產謄本必須先在地政電子謄本系統開立帳戶？</li>
+                        <li>答：本系統和地政電子謄本系統是兩個完全不同的服務系統，所屬主管機關不同，收費機制也不同，因此聲請人必須在兩個系統都先開立帳戶，才能享受跨機關整合服務的便利，目前並沒有一個帳戶可以全部通用的方法。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：在「民事強制執行線上聲請系統」上申領地政電子謄本，為何只限台北市、新北市、桃園市和台中市等四個都市？</li>
+                        <li>答：由於本系統是與財政部所屬關貿網路公司合作，其地政電子謄本系統目前只涵蓋四個都市，未來將陸續與全國各縣市地政事務所建立連線，但需要一些時間去架設網路。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：為什麼無法使用「債權憑證管理」功能？</li>
+                        <li>答：在本系統上進行管理的債權憑證都不是傳統紙本，而是電子化債權憑證，因此除非聲請人已經事先向法院領取電子債權憑證，否則無法使用「債權憑證管理」功能。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：手中的紙本債權憑證，要如何透過「民事強制執行線上聲請系統」送件？</li>
+                        <li>答：聲請人手中的紙本債權憑證可以掃描製成PDF檔，再用「上傳附件」功能作為執行名義一起向法院遞狀送件。但因為「強制執行法」規定除原第一審法院（也就是核發債權憑證的法院）外，其餘法院都必須附上執行名義正本，所以如果聲請執行的法院不是原第一審法院，法院將無法調閱卷宗，此時聲請人還是採用郵局掛號遞送比較適宜。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：電子化債權憑證可以作為執行名義正本，向任一法院聲請強制執行案件？</li>
+                        <li>答：電子化債權憑證乃是取代紙本的正本，可作為向任一法院聲請強制執行時的執行名義，但一經遞狀聲請就會被司法院資訊系統註記，執行期間不得再重複向其他法院提出聲請（但可聲請囑託），以防止超額執行。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：透過「民事強制執行線上聲請系統」完成送件，什麼時候可以收到法院回執？</li>
+                        <li>答：法院收發室是在每個工作日的上午十點和下午三點各收件一次，如果是假日送件，就必須等到下一個工作日的上午十點過後，才能收取法院回執。</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td width="100%" height="40" align="left" style="font-size: 16px;">
+                    <b id="InformationSecurity">◎資訊安全</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="bodyText" align="left">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：強制執行案件透過網際網路遞狀聲請，會不會有個人資料外洩的危險？</li>
+                        <li>答：本系統主機建置在政府網際服務網（GSN）的機房中，設有多道防火牆的保護，網路資料傳輸也全程採用SSL加密防護。此外，對於有大量送件需求的金融機構，本系統在中華電信亦建有「強制執行私有雲」，並提供GSN VPN的光纖專線，以保護各大銀行的客戶資料。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：「民事強制執行線上聲請系統」會不會突然電腦當機或線路中斷？</li>
+                        <li>答：本系統以政府網際服務網（GSN）的兩座機房作為異地備援，並建置三套主機，還設有RAID資料保護及NAS資料備份，共有四重安全防護措施，幾乎不可能發生系統當機或中斷的狀況。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：使用「民事強制執行線上聲請系統」會不會讓我的電腦中毒或是被駭客侵入？</li>
+                        <li>答：本系統已建有防毒防駭機制，並定期以Nessus檢測軟體進行滲透測試及弱點掃描，聲請人可以安心使用。</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td width="100%" height="40" align="left" style="font-size: 16px;">
+                    <b id="ChargingMechanism">◎收費機制</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="bodyText" align="left">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：透過「民事強制執行線上聲請系統」送件，要負擔多少費用？</li>
+                        <li>答：自然人和一般法人在開立帳戶時須先繳納300元開辦費（可刷信用卡或以線上ATM支付），之後經由本系統向法院傳送書狀的手續費是每一筆42元（含營業稅），採月結方式辦理。另外，如果需要向地方法院繳交千分之八的強制執行費時，也可以在本系統內連接法院多元繳費服務，直接完成繳納並取得收據。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：「民事強制執行線上聲請系統」的手續費是每一筆42元（含營業稅），但怎麼樣才算送件完成？又要如何繳交手續費？</li>
+                        <li>答：送件完成的認定標準，是以發送方收到對方的收文回執單才算完成書狀傳送流程，並新增一筆帳務紀錄。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：透過「民事強制執行線上聲請系統」完成送件，使用手續費要如何繳納？</li>
+                        <li>答：除了開辦費事先收取外，本系統的手續費是採月結處理。本公司將在每月初發送前一個月的紙本帳單（或電子郵件），請用戶依照所列的多元繳費方式完成繳納。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：聲請（債權）人的強制執行案件遭到法院退件或要求補狀，可否不要計算該筆42元手續費？</li>
+                        <li>答：聲請（債權）人作業疏漏而造成法院退件或通知補狀，其責任在聲請人自身，本系統既已完成書狀傳送之服務（如同郵局完成寄送），因此手續費仍應照列，無法豁免。</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td width="100%" height="40" align="left" style="font-size: 16px;">
+                    <b id="BarrierExclusion">◎障礙排除</b>
+                </td>
+            </tr>
+            <tr>
+                <td class="bodyText" align="left">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：忘記帳號或密碼時要怎麼處理？</li>
+                        <li>答：請在登入網頁上點選「忘記密碼」，本系統將重新寄送密碼到用戶的電子郵件信箱或手機中，或是打客服專線電話：02-OOOOOOOO，由專人協助處理。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：透過「民事強制執行線上聲請系統」送件時發生網路塞車或斷線，怎麼確認送件是否完成？</li>
+                        <li>答：由於法院收發室是在每個工作日的上午十點和下午三點各收件一次，因此聲請人可以在上述時間點過後收取回執，如果沒有收到法院回執，請打客服專線電話：02-OOOO-OOOO，由專人協助處理。此外，本系統亦設有監控機制，遇有服務不順暢的情況，維護人員也會立即查明原因，必要時將主動聯絡相關用戶，以確保書狀傳送完成。</li>
+                    </ul>
+                    <hr style=" height:1px;border:none;background-color:blue">
+                    <ul style="list-style-type:none">
+                        <li style="color:saddlebrown">問：強制執行聲請作業必須向很多機關申請相關資料，在這個系統上為什麼只能申領地政電子謄本，卻沒有國稅局、戶政事務所等其他機關的服務？</li>
+                        <li>答：為了達成司法便民服務的宗旨，本系統仍將努力介接政府相關服務，除了現有的地政電子謄本系統外，未來也會規劃財稅、戶政等線上申辦作業，以達成一站滿足的服務目標，敬請期待。</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="col-md-2">
+        <div class="jumbotron position-fixed">
+            <div class="form-group">
+                <a href="#SystemsManual">系統說明</a>
+                <br />
+                <a href="#OpenAccount">開立帳戶</a>
+                <br />
+                <a href="#OperationalProblem">操作問題</a>
+                <br />
+                <a href="#InformationSecurity">資訊安全</a>
+                <br />
+                <a href="#ChargingMechanism">收費機制</a>
+                <br />
+                <a href="#BarrierExclusion">障礙排除</a>
+            </div>
+        </div>
+    </div>
+</div>
